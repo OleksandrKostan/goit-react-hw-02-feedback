@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { Section } from './Section/Section'
-import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions ';
-import { Statistics } from './Statistics/Statistics';
-import { Notification } from './Notification/Notification';
+import { Section } from '../Section/Section'
+import { FeedbackOptions } from '../FeedbackOptions/FeedbackOptions ';
+import { Statistics } from '../Statistics/Statistics';
+import { Notification } from '../Notification/Notification';
+
+import { ThemeProvider } from 'styled-components';
+import { theme } from './Theme';
+import { GlobalStyle } from './GlobalStyle';
 
 
 
@@ -34,8 +38,8 @@ export class App extends Component {
   }
 
   render() {
-    return (
-      <><Section title="Please leave feedback">
+    return (<> <ThemeProvider theme={theme}> <GlobalStyle />
+     <Section title="Please leave feedback">
         <FeedbackOptions options={['Good', 'Neutral', 'Bad']}
           onLeaveFeedback={this.handleFeedback} />
       </Section>
@@ -46,8 +50,7 @@ export class App extends Component {
             total={this.countTotalFeedback()}
             positivePercentage={this.countPositiveFeedbackPercentage()} />) : (
           <Notification message="There is no feedback"></Notification>)}
-
-        </Section></>
+        </Section>  </ThemeProvider> </>
 
         
     );
