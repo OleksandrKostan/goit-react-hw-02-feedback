@@ -16,15 +16,10 @@ export class App extends Component {
     neutral: 0,
     bad: 0
   };
-  handleFeedback = e => {
-    if (e === 'Good') {
-      this.setState({ good: this.state.good + 1 });
-    } else if (e === 'Neutral') {
-      this.setState({ neutral: this.state.neutral + 1 });
-    } else if (e === 'Bad') {
-      this.setState({ bad: this.state.bad + 1 });
-    }
-  };
+ handleFeedback = e => {
+  this.setState(prevState => ({ [e]: prevState[e] + 1 }));
+ };
+  
   countTotalFeedback = e => {
     let total = this.state.good + this.state.neutral + this.state.bad;
     return total;
@@ -40,7 +35,7 @@ export class App extends Component {
   render() {
     return (<> <ThemeProvider theme={theme}> <GlobalStyle />
      <Section title="Please leave feedback">
-        <FeedbackOptions options={['Good', 'Neutral', 'Bad']}
+        <FeedbackOptions options={Object.keys(this.state)}
           onLeaveFeedback={this.handleFeedback} />
       </Section>
         <Section title="Statistics"> {this.countTotalFeedback() !== 0 ? (
